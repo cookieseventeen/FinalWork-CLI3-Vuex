@@ -1,4 +1,4 @@
-# finalworl-cli3
+# FinalWork-cli3
 
 ## Project setup
 ```
