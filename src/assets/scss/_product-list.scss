@@ -1,0 +1,31 @@
+.productList {
+    .theme-card-anchor {
+        height: 100%;
+        display: block;
+        cursor: pointer;
+
+        img {
+            transition: transform .6s ease;
+        }
+
+        figure {
+            overflow: hidden;
+        }
+
+        &:hover {
+            img {
+                transform: scale(1.2);
+            }
+
+        }
+
+        .card-themes {
+            height: 100%;
+
+            h2 {
+                font-size: 20px;
+                padding: 0 1.25rem;
+            }
+        }
+    }
+}
