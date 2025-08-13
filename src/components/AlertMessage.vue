@@ -3,7 +3,7 @@
     <div class="alert alert-dismissible"
       :class="'alert-' + item.status"
       v-for="(item, i) in messages" :key="i">
-      {{ item.message }}
+      <span v-html="sanitizeMessage(item.message)"></span>
       <button type="button" class="close" @click="removeMessage(i)" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
@@ -20,6 +20,16 @@ export default {
     };
   },
   methods: {
+    sanitizeMessage(message) {
+      // Simple HTML entity encoding to prevent XSS
+      return message
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#x27;')
+        .replace(/\//g, '&#x2F;');
+    },
     updateMessage(message, status) {
       const timestamp = Math.floor(new Date() / 1000);
       this.messages.push({
@@ -35,11 +45,8 @@ export default {
     removeMessageWithTiming(timestamp) {
       const vm = this;
       setTimeout(() => {
-        vm.messages.forEach((item, i) => {
-          if (item.timestamp === timestamp) {
-            vm.messages.splice(i, 1);
-          }
-        });
+        // Fix: Use filter to avoid mutation during iteration
+        vm.messages = vm.messages.filter(item => item.timestamp !== timestamp);
       }, 5000);
     },
   },

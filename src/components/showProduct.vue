@@ -28,8 +28,8 @@
           <div class="item" v-if="productDetail.demoSite">
             <a :href="productDetail.demoSite" target="_blank">{{ productDetail.demoSite }} </a>
           </div>
-          <div class="item" v-if="!productDetail.demoSite">
-            <a :href="productDetail.codepen" target="_blank">{{ productDetail.demoSite }} </a>
+          <div class="item" v-if="!productDetail.demoSite && productDetail.codepen">
+            <a :href="productDetail.codepen" target="_blank">{{ productDetail.codepen }} </a>
           </div>
         </div>
         <div class="crtl-bar">
